@@ -1,0 +1,15 @@
+function down_txt(){
+  $filename = I('card_secret_group_id').md5(mt_rand()).'.txt';
+        header("Content-Type: application/force-download");
+        header("Content-Disposition: attachment; filename=" . basename($filename));
+        ob_start();
+        $content = M('card_secret')->where('card_secret_group_id='.I('card_secret_group_id'))->select();
+        $str = '';
+        foreach ($content as $key => $value) {
+            $str .= "\r\n".$value['card_secret'];
+        }
+        $content = implode('', $arr);
+        ob_end_clean();
+        echo $str; //这里是文件的内容
+        exit;
+}
